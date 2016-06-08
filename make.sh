@@ -1,4 +1,6 @@
 #!/bin/bash
+mkdir -p service/impl
+mkdir -p service/endp
 
 javac -cp . SegService.java
 mv -f SegService.class service/impl/
