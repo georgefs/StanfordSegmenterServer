@@ -15,10 +15,10 @@ Stadford segmenter的演算法論文可以參考: [Pi-Chuan Chang, Michel Galley
 
 1. 首先到[Stanford Word Segmenter](http://nlp.stanford.edu/software/segmenter.shtml)下載[Stanford Word Segmenter version 3.5.2](http://nlp.stanford.edu/software/stanford-segmenter-2015-12-09.zip)。
 2. 將壓縮檔解壓後，應該會有一個獨立的`stanford-segmenter-2015-12-09`目錄，將這個repository中的所有檔案都複製到該目錄下。
-3. 在目錄下解壓縮以下的檔案
-    * `stanford-segmenter-3.6.0.jar`
-    * `slf4j-api.jar`
-    * `slf4j-simple.jar`
+3. 執行`install.sh`，會執行以下任務
+    * 解壓縮 `stanford-segmenter-3.6.0.jar`
+    * 解壓縮 `slf4j-api.jar`
+    * 解壓縮 `slf4j-simple.jar`
     * 解壓縮後，目錄下應該會多出`edu`, `org`, `META-INF`等目錄
 4. 確定你有安裝Java SDK 8，並執行`make.sh`，裡面作的事情很簡單
     * 建立目錄 `service`
@@ -30,6 +30,12 @@ Stadford segmenter的演算法論文可以參考: [Pi-Chuan Chang, Michel Galley
 5. 確定你有安裝Java SDK 8，然後執行`run.sh`，這樣service就啟動了。當第一次呼叫service時，會載入資料，所以會花較長時間。
 
 
+## Customization
+
+1. POS tagger使用的語言model定義在`SegServiceImpl.java`第24行，預設值為`models/chinese-distsim.tagger`代表中文POS tagger
+2. Port number定義在`SegServicePublisher.java`第10行，預設值為`http://localhost:9999/seg`
+
+
 ## Usage
 
 1. 在Python中安裝`suds`套件
@@ -39,4 +45,5 @@ Stadford segmenter的演算法論文可以參考: [Pi-Chuan Chang, Michel Galley
     * `from suds.client import Client`
     * `segClient = Client('http://localhost:9999/seg?wsdl')`
     * `segClient.service.getSegmentResult(text)`
-3. 特別注意，Stanford segmenter的訓練資料是簡體，所以使用繁體時斷詞效果會較差，建議將文字轉為簡體再斷詞
+3. 注意事項
+    * Stanford segmenter的訓練資料是簡體，所以使用繁體時斷詞效果會較差，建議將文字轉為簡體再斷詞
